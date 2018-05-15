@@ -7,15 +7,26 @@ var burger = require("../models/burger.js");
 
 
 // Create all our routes and set up logic within those routes where required.
-// router.get("/", function(req, res) {
-//   cat.all(function(data) {
-//     var hbsObject = {
-//       cats: data
-//     };
-//     console.log(hbsObject);
-//     res.render("index", hbsObject);
-//   });
-// });
+router.get("/", function(req, res) {
+  burger.selectAll(function(data) {
+  	// console.log(data)
+    res.render("index");
+
+  });
+  console.log("controller route works")
+});
+
+router.post("/api/burgers", function(req, res) {
+	console.log(req.body)
+	burger.insertOne(["burger_name", "devoured"], [req.body.burger_name, req.body.devoured], function(result) {
+
+	res.json({ id: result.insertId})
+	})
+})
+
+
+
+
 
 // router.post("/api/cats", function(req, res) {
 //   cat.create([

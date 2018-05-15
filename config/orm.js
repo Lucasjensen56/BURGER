@@ -7,73 +7,79 @@ var connection = require("./connection.js");
 // These help avoid SQL injection
 // https://en.wikipedia.org/wiki/SQL_injection
 
-var orm = {
-  selectAll: function(tableInput, colToSearch, valOfCol) {
-    var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-    connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-      if (err) throw err;
-      console.log(result);
-    });
-  },
-  insertOne: function(whatToSelect, table, orderCol) {
-    var queryString = "SELECT ?? FROM ?? ORDER BY ?? DESC";
-    console.log(queryString);
-    connection.query(queryString, [whatToSelect, table, orderCol], function(err, result) {
-      if (err) throw err;
-      console.log(result);
-    });
-  },
-  updateOne: function(tableOneCol, tableTwoForeignKey, tableOne, tableTwo) {
-    var queryString =
-      "SELECT ??, COUNT(??) AS count FROM ?? LEFT JOIN ?? ON ??.??= ??.id GROUP BY ?? ORDER BY count DESC LIMIT 1";
 
-    connection.query(
-      queryString,
-      [tableOneCol, tableOneCol, tableOne, tableTwo, tableTwo, tableTwoForeignKey, tableOne, tableOneCol],
-      function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      }
-    );
+function printQuestionMarks(num) {
+  var arr = [];
+
+  for (var i = 0; i < num; i++) {
+    arr.push("?");
   }
+
+  return arr.toString();
+}
+
+
+
+var orm = {
+  selectAll: function(tableInput, cb) {
+    var queryString = "SELECT * FROM " + tableInput + ";"
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+        console.log(data)
+      } 
+      cb(result)
+    });
+  },
+
+  logTest: function(table) {
+    var queryString = "SELECT * FROM burgers";
+    connection.query(queryString, function(err, result) {
+      console.log(result)
+     
+    });
+  },
+
+  insertOne: function(table, cols, vals, cb) {
+    var queryString = "INSERT INTO " + table;
+
+    queryString += " (";
+    queryString += cols.toString();
+    queryString += ") ";
+    queryString += "VALUES (";
+    queryString += printQuestionMarks(vals.length);
+    queryString += ") ";
+
+    console.log(queryString);
+
+    connection.query(queryString, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result) 
+    })
+
+  }
+
+
+
+
+  // updateOne: function(tableOneCol, tableTwoForeignKey, tableOne, tableTwo) {
+  //   var queryString =
+  //     "SELECT ??, COUNT(??) AS count FROM ?? LEFT JOIN ?? ON ??.??= ??.id GROUP BY ?? ORDER BY count DESC LIMIT 1";
+
+  //   connection.query(
+  //     queryString,
+  //     [tableOneCol, tableOneCol, tableOne, tableTwo, tableTwo, tableTwoForeignKey, tableOne, tableOneCol],
+  //     function(err, result) {
+  //       if (err) throw err;
+  //       console.log(result);
+  //     }
+  //   );
+  // }
 };
 
 
-
-
-
-
-
-
-var orm = {
-    selectWhere: function(tableInput, colToSearch, valOfCol) {
-      var queryString = "SELECT * FROM ?? WHERE ?? = ?";
-      connection.query(queryString, [tableInput, colToSearch, valOfCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    selectAndOrder: function(whatToSelect, table, orderCol) {
-      var queryString = "SELECT ?? FROM ?? ORDER BY ?? DESC";
-      console.log(queryString);
-      connection.query(queryString, [whatToSelect, table, orderCol], function(err, result) {
-        if (err) throw err;
-        console.log(result);
-      });
-    },
-    findWhoHasMost: function(tableOneCol, tableTwoForeignKey, tableOne, tableTwo) {
-      var queryString =
-        "SELECT ??, COUNT(??) AS count FROM ?? LEFT JOIN ?? ON ??.??= ??.id GROUP BY ?? ORDER BY count DESC LIMIT 1";
-  
-      connection.query(
-        queryString,
-        [tableOneCol, tableOneCol, tableOne, tableTwo, tableTwo, tableTwoForeignKey, tableOne, tableOneCol],
-        function(err, result) {
-          if (err) throw err;
-          console.log(result);
-        }
-      );
-    }
-  };
+//   };
   
   module.exports = orm;

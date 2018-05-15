@@ -1,9 +1,16 @@
 // Dependencies
 var express = require("express");
+var bodyParser = require("body-parser");
 var exphbs = require("express-handlebars");
+var path = require("path")
 
 // Create an instance of the express app.
 var app = express();
+
+app.use(express.static("public"));
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Set the port of our application
 // process.env.PORT lets the port be set by Heroku
@@ -13,32 +20,15 @@ var PORT = process.env.PORT || 8080;
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+// parse application/json
+app.use(bodyParser.json());
+
+// Importanting Routes
+var routes = require("./controllers/burgers_controller.js");
+
+app.use(routes);
 
 
-// Data
-// var lunches = [
-//   {
-//     lunch: "Beet & Goat Cheese Salad with minestrone soup."
-//   }, {
-//     lunch: "Pizza, two double veggie burgers, fries with a Big Gulp"
-//   }
-// ];
-
-// Routes
-app.get("/weekday", function(req, res) {
-  res.render("index", lunches[0]);
-});
-
-app.get("/weekend", function(req, res) {
-  res.render("index", lunches[1]);
-});
-
-app.get("/lunches", function(req, res) {
-  res.render("all-lunches", {
-    foods: lunches,
-    eater: "david"
-  });
-});
 
 // Start our server so that it can begin listening to client requests.
 app.listen(PORT, function() {

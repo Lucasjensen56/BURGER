@@ -55,14 +55,6 @@ var orm = {
     });
   },
 
-  logTest: function(table) {
-    var queryString = "SELECT * FROM burgers";
-    connection.query(queryString, function(err, result) {
-      console.log(result)
-     
-    });
-  },
-
   insertOne: function(table, cols, vals, cb) {
     var queryString = "INSERT INTO " + table;
 
@@ -93,7 +85,7 @@ var orm = {
     queryString += condition;
 
     console.log(queryString);
-    condition.query(queryString, function(err, result) {
+    connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
@@ -119,6 +111,6 @@ var orm = {
 };
 
 
-//   };
+
   
   module.exports = orm;

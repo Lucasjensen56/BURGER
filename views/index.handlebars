@@ -19,24 +19,42 @@
   <button id="addBurger" class="btn" type="submit">Add Burger</button>
 </form>
 
-<ul>
-{{#each burgers}}
-	
-{{/each}}
-</ul
 
 
-<ul>
-  {{#each burgers}}
-  <li>
-    <p>
-      {{this.burger_name}}. {{this.devoured}}
 
-      <button data-planid="{{this.id}}" class="delplan">Delete Plan!</button>
-    </p>
-  </li>
-  {{/each}}
-</ul>
+<div class="row">
+  <div class="col s6">
+    <h2>Fresh Burgers</h2>
+      <ul>
+        {{#each burgers}}
+        <li>
+          <p>
+            {{this.burger_name}}. {{this.devoured}}
+
+            <button class="change-burger" data-id="{{this.id}}" dataDevoured="{{this.devoured}}">Devour Burger!</button>
+          </p>
+        </li>
+        {{/each}}
+      </ul>
+  </div>
+  <div class="col s6">
+    <h3>Devoured Burgers</h3>
+      <ul>
+      {{#each burgers}}
+      <li>
+        {{#if this.devoured}}
+          {{this.burger_name}}
+        {{/if}}
+        </li>
+      {{/each}}
+      </ul>
+  </div>
+</div>
+
+
+
+
+
 
 
 

@@ -19,4 +19,25 @@
   <button id="addBurger" class="btn" type="submit">Add Burger</button>
 </form>
 
+<ul>
+{{#each burgers}}
+	
+{{/each}}
+</ul
+
+
+<ul>
+  {{#each burgers}}
+  <li>
+    <p>
+      {{this.burger_name}}. {{this.devoured}}
+
+      <button data-planid="{{this.id}}" class="delplan">Delete Plan!</button>
+    </p>
+  </li>
+  {{/each}}
+</ul>
+
+
+
 </div>

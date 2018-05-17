@@ -29,9 +29,10 @@
         {{#each burgers}}
         <li>
           <p>
-            {{this.burger_name}}. {{this.devoured}}
-
-            <button class="change-burger" data-id="{{this.id}}" dataDevoured="{{this.devoured}}">Devour Burger!</button>
+            {{#unless devoured}}
+              {{this.burger_name}}
+              <button class="change-burger" data-id="{{this.id}}" dataDevoured="{{this.devoured}}">Devour Burger!</button>
+            {{/unless}}
           </p>
         </li>
         {{/each}}

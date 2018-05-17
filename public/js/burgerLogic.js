@@ -30,15 +30,6 @@ $(function() {
 
 	$(".change-burger").on("click", function(event) {
 		var id = $(this).data("id");
-
-		// if (devoured != 1) {
-		// 	console.log("data-devoured is 0")
-		// }
-
-		// // var newBurger = $(this).data("newBurger")
-
-		// console.log("this is the new id" + id)
-
 		var devoured = {
 			devoured: 1
 		};
@@ -48,7 +39,7 @@ $(function() {
 			data: devoured
 		}).then(
 			function() {
-				console.log("changed burger to", newBurger)
+				console.log("changed burger to", devoured)
 				location.reload();
 			}
 		)

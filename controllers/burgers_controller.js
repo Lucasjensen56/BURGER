@@ -8,6 +8,8 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
+        timeout: 10000, // some time in MS less than 30000 when Heroku will drop the request
+        
   burger.selectAll(function(data) {
   	var hbsObject = {
   		burgers: data

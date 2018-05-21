@@ -1,7 +1,7 @@
 
 
 var mysql = require("mysql");
-
+require('dotenv').config();
 
 // 
 
@@ -21,6 +21,7 @@ if (process.env.JAWSDB_URL) {
 
 // 
 
+	 	// password: "process.env.SECRET_KEY",
 
 
 // var connection = mysql.createConnection({

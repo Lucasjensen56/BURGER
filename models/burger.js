@@ -1,6 +1,5 @@
 var orm = require("../config/orm.js");
 
-// orm.logTest()
 
 var burger = {
     selectAll: function(cb) {
